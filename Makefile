@@ -1,6 +1,7 @@
 IMAGE=dvitali/slidev
 TAG=latest
 
+NAME=clis-everywhere
 PRES_IMAGE=dvitali/go-generics-presentation
 PRES_TAG=latest
 
@@ -29,7 +30,7 @@ docker-run:
 	docker run \
 		--rm \
 		-it \
-		--name "go-generics-presentation" \
+		--name "$(NAME)" \
 		-p 8080:80 \
 		"$(PRES_IMAGE):$(PRES_TAG)"
 

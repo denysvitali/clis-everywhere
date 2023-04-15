@@ -41,7 +41,7 @@ image: ./pictures/denysvitali-swisscom-go.png
 
 - Mostly doing DevOps stuff
 
-- I write lots of CLIs
+- Writing lots of CLIs
 
 - Lots of contributions to Open Source, whenever possible
 
@@ -305,7 +305,9 @@ background: pictures/swiss-qr-bill.jpg
 
 
 ---
-layout: default
+layout: image-right
+background-size: contain
+image: ./pictures/paper-stack.jpg
 ---
 
 ## A more realistic example
@@ -327,17 +329,29 @@ layout: default
 
 ## Let's build a solution
 
-### Components
 
-- Bash
-- CLI
-- CLI
-- CLI
-- ???
-- A bank account
+```mermaid
+flowchart LR
+    A[Scanner]
+    A --> B
+    B[CLI 1]
+    B --> C
+    C[CLI 2]
+    C --> D
+    D[...]
+    OS[OpenSearch]
+    Bank[Bank]
+    Telegram[Telegram]
+    D --> OS
+    D --> Bank
+    D --> Telegram
+
+```
 
 ---
-layout: small-title
+layout: image-right
+background-size: contain
+image: ./pictures/scanner.jpg
 ---
 
 # Scanning the documents
@@ -350,7 +364,7 @@ Let's see how we can scan our documents:
 </li>
 
 <li v-click>
-<code>airscan1 -host=scanner-1 -source=adf</code>
+<code>airscan1 -host=scanner-1 -source=adf</code> *
 </li>
 
 <li v-click>
@@ -362,22 +376,50 @@ Let's see how we can scan our documents:
 </li>
 </ul>
 
+<small v-click>* ADF = Automatic Document Feeder</small>
+
 ---
-layout: small-title
+layout: image-right
+background-size: contain
+image: ./pictures/invoice-example.jpg
 ---
 
-# Parse the barcodes
+# Result
+
+- A set of JPG images
+  - Some might be blank [1]
+  - Some contain a QR code (QR-Bill) [2]
+  - Most of them contain text [3]
+
+
+---
+layout: image-right
+background-size: contain
+image: ./pictures/blankpage-detector.jpg
+---
+
+# Some might be blank...
 
 ```
+$ blank-page-detector images/page*.jpg
+images/page1.jpg
+images/page4.jpg
+
+$ rm $(blank-page-detector images/page*.jpg)
+```
+
+---
+layout: image-right
+background-size: contain
+image: ./pictures/zbar-webpage.jpg
+---
+
+# Some contain a QR code
+
 zbarimg - scan and decode bar codes from image file(s)
-```
-
 
 ```
-zbarimg -q page1.jpg
-```
-
-```
+$ zbarimg -q page1.jpg
 QR-Code:SPC
 0200
 1
