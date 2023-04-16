@@ -5,6 +5,10 @@ const props = defineProps({
   image: {
     type: String,
   },
+  imageWidth: {
+    type: String,
+    required: false,
+  },
   backgroundSize: {
     type: String,
     default: "cover",
@@ -16,6 +20,10 @@ const props = defineProps({
 const style = computed(() => {
     let s = handleBackground(props.image)
     s.backgroundSize = props.backgroundSize;
+    if(props.imageWidth != ""){
+      s.width = props.imageWidth
+      s.marginLeft = "auto"
+    }
     return s;  
   }
 )
@@ -27,6 +35,6 @@ const style = computed(() => {
     <div class="slidev-layout default" :class="props.class">
       <slot />
     </div>
-    <div class="w-full w-full" :style="style" />
+    <div class="w-full" :style="style" />
   </div>
 </template>

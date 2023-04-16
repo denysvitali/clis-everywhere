@@ -4,11 +4,7 @@ background: ./pictures/bg-initial.jpg
 class: text-center
 highlighter: shiki
 lineNumbers: false
-info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
+info:
 drawings:
   persist: false
 title: CLIs Everywhere
@@ -501,6 +497,81 @@ Perform whatever check you need via jq, for example:
 $ swiss-qr-bill | jq .PaymentAmount.Amount.Base
 10
 ```
+
+
+---
+layout: image-right
+background-size: contain
+image: ./pictures/ocr-scan.jpg
+---
+
+# Some contain text
+
+```
+tesseract -l eng+deu page1.jpg /tmp/result
+```
+<br/>
+
+<pre style="font-size: 10px; padding: 4px;">
+WIKIPEDIA
+
+The Free Encyclopedia
+
+Optical character recognition
+
+A process called Optical Character Recognition
+(OCR) converts printed texts into digital image files. It
+is a digital copier that uses automation to convert
+scanned documents into editable, shareable PDFs that
+are machine-readable. OCR may be seen in action
+when you use your computer to scan a receipt. The
+scan is then saved as a picture on your computer. The
+words in the image cannot be searched, edited, or Farly —ÜZZÄI““""_“ e i
+
+counted, but you may use OCR to convert the image A e T 0230
+to a text document with the content stored as text.
+OCR software can extract data from scanned
+documents, camera photos, and image-only PDFs. It
+makes static material editable and does away with the
+
+necessity for human data entry.[!]
+
+Video of the process of scanning and real-
+time optical character recognition (OCR)
+with a portable scanner
+</pre>
+
+---
+layout: image-right
+background-size: contain
+image: ./pictures/image-stcks-and-iphone-racks.jpg
+---
+
+# Improving OCR quality
+
+Inspiration: [Image Stacks and iPhone Racks - Building an Internet Scale Meme Search Engine (2023)](https://findthatmeme.com/blog/2023/01/08/image-stacks-and-iphone-racks-building-an-internet-scale-meme-search-engine-Qzrz7V6T.html)
+
+
+<div v-click>
+TL;DR:
+<img src="/pictures/iphone-cluster.jpg" width="300" style="margin-top: 10px;"/>
+</div>
+
+---
+layout: small-title
+---
+
+# First OCR attempt
+
+<img src="/pictures/iphone-8.jpg"/>
+
+<div v-click style="margin-top: 2em">
+... ended up not using it at all.
+</div>
+
+<div v-click style="margin-top: 2em">
+(does anyone need an iPhone 8?)
+</div>
 
 
 ---
