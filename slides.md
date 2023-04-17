@@ -1,7 +1,8 @@
 ---
 theme: ./theme
-background: ./pictures/bg-initial.jpg
+background: /pictures/bg-initial.jpg
 class: text-center
+monaco: true
 highlighter: shiki
 lineNumbers: false
 info:
@@ -12,11 +13,17 @@ title: CLIs Everywhere
 
 # CLIs Everywhere
 
+XXIV. Go Meetup @ Swisscom #EasterEdition
+
+<br/>
+
 Denys Vitali -- Data, Analytics & AI Engineer @ Swisscom
+
+
 ---
 layout: image-right
 background-size: contain
-image: ./pictures/denysvitali-gh.png
+image: /pictures/denysvitali-gh.png
 ---
 # `whoami`
 
@@ -29,13 +36,13 @@ image: ./pictures/denysvitali-gh.png
 ---
 layout: image-right-small
 background-size: contain
-image: ./pictures/denysvitali-swisscom-go.png
+image: /pictures/denysvitali-swisscom-go.png
 ---
 # About Me @ Swisscom
 
 - Data, Analytics & AI Engineer
 
-- Mostly doing DevOps stuff
+- Mostly doing DevOps and Software Engineering stuff
 
 - Writing lots of CLIs
 
@@ -46,7 +53,7 @@ image: ./pictures/denysvitali-swisscom-go.png
 
 ---
 layout: cover
-background: ./pictures/location.jpg
+background: /pictures/location.jpg
 ---
 
 # Thank you Swisscom!
@@ -55,7 +62,7 @@ background: ./pictures/location.jpg
 
 ---
 layout: fact
-background: ./pictures/cli.png
+background: /pictures/cli.png
 ---
 
 # CLIs Everywhere
@@ -127,7 +134,7 @@ layout: small-title
 
 ---
 layout: fact
-background: ./pictures/burrito.jpg
+background: /pictures/burrito.jpg
 ---
 
 # `burrito`
@@ -294,16 +301,27 @@ layout: default
 
 ---
 layout: cover
-background: pictures/swiss-qr-bill.jpg
+background: /pictures/bg-1.jpg
 ---
 
-# A more realistic example
+# ODI
+
+Overengineered Document Indexing*
+
+
+<p class="small">* personal project, not related to Swisscom</p>
+
+<style>
+p.small {
+  font-size: 0.6em;
+}
+</style>
 
 
 ---
 layout: image-right
 background-size: contain
-image: ./pictures/paper-stack.jpg
+image: /pictures/paper-stack.jpg
 ---
 
 ## A more realistic example
@@ -341,13 +359,12 @@ flowchart LR
     D --> OS
     D --> Bank
     D --> Telegram
-
 ```
 
 ---
 layout: image-right
 background-size: contain
-image: ./pictures/scanner.jpg
+image: /pictures/scanner.jpg
 ---
 
 # Scanning the documents
@@ -377,7 +394,7 @@ Let's see how we can scan our documents:
 ---
 layout: image-right
 background-size: contain
-image: ./pictures/invoice-example.jpg
+image: /pictures/invoice-example.jpg
 ---
 
 # Result
@@ -391,7 +408,7 @@ image: ./pictures/invoice-example.jpg
 ---
 layout: image-right
 background-size: contain
-image: ./pictures/blankpage-detector.jpg
+image: /pictures/blankpage-detector.jpg
 ---
 
 # Some might be blank...
@@ -407,7 +424,7 @@ $ rm $(blank-page-detector images/page*.jpg)
 ---
 layout: image-right
 background-size: contain
-image: ./pictures/zbar-webpage.jpg
+image: /pictures/zbar-webpage.jpg
 ---
 
 # Some contain a QR code
@@ -451,7 +468,7 @@ layout: small-title
 # Use the CLI you've just created
 
 ```
-swiss-qr-bill < qrbill.txt
+$ swiss-qr-bill < qrbill.txt
 ```
 
 ```json
@@ -502,13 +519,13 @@ $ swiss-qr-bill | jq .PaymentAmount.Amount.Base
 ---
 layout: image-right
 background-size: contain
-image: ./pictures/ocr-scan.jpg
+image: /pictures/ocr-scan.jpg
 ---
 
 # Some contain text
 
 ```
-tesseract -l eng+deu page1.jpg /tmp/result
+$ tesseract -l eng+deu page1.jpg /tmp/result
 ```
 <br/>
 
@@ -544,7 +561,7 @@ with a portable scanner
 ---
 layout: image-right
 background-size: contain
-image: ./pictures/image-stcks-and-iphone-racks.jpg
+image: /pictures/image-stcks-and-iphone-racks.jpg
 ---
 
 # Improving OCR quality
@@ -578,22 +595,216 @@ layout: small-title
 layout: small-title
 ---
 
-# Send a (Telegram) notification
+# Second OCR attempt
 
-You can as well send a notification during the process
+<div class="ocr-server-images">
+  <img src="/pictures/ocr-server-1.png"/>
+  <img src="/pictures/ocr-server-2.png"/>
+  <img src="/pictures/mlkit.jpg" v-click/>
+</div>
+
+<style>
+div.ocr-server-images {
+  display: flex;
+  column-gap: 10px;
+}
+
+div.ocr-server-images img {
+  height: 400px;
+  max-width: 400px;
+  object-fit: contain;
+}
+</style>
+
+---
+layout: small-title
+---
+
+# OCR Server
+
+```kotlin
+routing {
+    get("/healthz", healthz())
+    post("/api/v1/ocr", handleOcr())
+    get("/api/v1/battery", handleBattery())
+}
+```
+
+`POST /api/v1/ocr`
+
+<div class="monaco">
+
+```json {monaco}
+{
+  "textBlocks": [
+    {
+      "text": "The Free Encyclopedia",
+      "lines": [
+        {
+          "text": "The Free Encyclopedia",
+          "angle": 0,
+          "confidence": 0.8299753,
+          "recognizedLanguage": "en"
+        }
+      ],
+      "boundingBox": {
+        "top": 80,
+        "bottom": 92,
+        "left": 86,
+        "right": 203
+      },
+      "lang": "und"
+    }
+  ],
+  "barcodes": [
+    {
+      "boundingBox": {
+        "top": 2471,
+        "bottom": 3007,
+        "left": 781,
+        "right": 1316
+      },
+      "displayValue": "SPC\r\n0200\r\n1\r\nCH6431961000004421557\r\nS\r\nMax Muster & Söhne\r\nMusterstrasse\r\n123\r\n8000\r\nSeldwyla\r\nCH\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n50.00\r\nCHF\r\nS\r\nSimon Muster\r\nMusterstrasse\r\n1\r\n8000\r\nSeldwyla\r\nCH\r\nQRR\r\n000008207791225857421286694\r\nPayment of travel\r\nEPD\r\n",
+      "rawValue": "SPC\r\n0200\r\n1\r\nCH6431961000004421557\r\nS\r\nMax Muster & Söhne\r\nMusterstrasse\r\n123\r\n8000\r\nSeldwyla\r\nCH\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n50.00\r\nCHF\r\nS\r\nSimon Muster\r\nMusterstrasse\r\n1\r\n8000\r\nSeldwyla\r\nCH\r\nQRR\r\n000008207791225857421286694\r\nPayment of travel\r\nEPD\r\n"
+    }
+  ]
+}
+```
+
+</div>
+
+<style>
+  div.monaco iframe {
+   	height: 250px !important; 
+    background-color: red;
+  }
+</style>
+
+---
+layout: small-title
+---
+
+# `ocr-client`
+
+```
+$ ocr-client -h 
+Usage: ocr-client [--debug] --ocr-api OCR-API [--ocr-api-ca-path OCR-API-CA-PATH] [--output-mode OUTPUT-MODE] INPUTPATH
+
+Positional arguments:
+  INPUTPATH
+
+Options:
+  --debug, -D
+  --ocr-api OCR-API, -a OCR-API
+                         Address of the OCR API [env: OCR_API_ADDR]
+  --ocr-api-ca-path OCR-API-CA-PATH, -c OCR-API-CA-PATH [env: OCR_API_CA_PATH]
+  --output-mode OUTPUT-MODE, -o OUTPUT-MODE [default: text]
+  --help, -h             display this help and exit
+```
+
+<br/>
 
 ```bash
-function telegram_notify(){
-    BOT_TOKEN="$1"
-    CHAT_ID="$2"
-    TEXT="$3"
+export OCR_API_ADDR=https://ocr-api.lan:8443/
+export OCR_API_CA_PATH=$HOME/pki/root/certs/root.crt
+ocr-client -o json ~/Pictures/invoice-1.jpg
+```
 
-    curl \
-        -s \
-        -X POST
-        "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
-        -d "chat_id=$CHAT_ID" \
-        -d "text=$TEXT" 
+---
+layout: small-title
+---
+
+# Current CLIs diagram
+
+```mermaid
+flowchart LR
+    scanner[Scanner]
+    scanner --> airscan
+    airscan[airscan1]
+    airscan --> tesseract
+    airscan --> ocr_client
+    tesseract --> zbarimg
+    
+    qr[swiss-qr-bill]
+    zbarimg --> qr
+
+    ocr_client[ocr-client]
+    ocr_client --> qr
+
+    OS[OpenSearch]
+    Bank[Bank]
+    Telegram[Telegram]
+
+    qr --> OS
+    qr --> Bank
+    qr --> Telegram
+```
+
+
+---
+layout: small-title
+---
+
+# Indexing to OpenSearch
+
+<img src="/pictures/opensearch-cli.png" style="max-height: 400px; margin-left: auto; margin-right: auto"/>
+
+---
+layout: small-title
+---
+
+# Re-using components
+
+```
+$ documents-indexer -h
+Usage: documents-indexer --ocr-api OCR-API [--ocr-api-ca-path OCR-API-CA-PATH] --os-address OS-ADDRESS --os-username OS-USERNAME --os-password OS-PASSWORD [--insecure] [--debug] [--workers WORKERS] INPUTDIR
+
+Positional arguments:
+  INPUTDIR
+
+Options:
+  --ocr-api OCR-API, -o OCR-API
+                         Address of the OCR API [env: OCR_API_ADDR]
+  --ocr-api-ca-path OCR-API-CA-PATH [env: OCR_API_CA_PATH]
+  --os-address OS-ADDRESS, -a OS-ADDRESS [env: OPENSEARCH_ADDR]
+  --os-username OS-USERNAME, -u OS-USERNAME [env: OPENSEARCH_USERNAME]
+  --os-password OS-PASSWORD, -p OS-PASSWORD [env: OPENSEARCH_PASSWORD]
+  --insecure [env: OPENSEARCH_INSECURE_SKIP_VERIFY]
+  --debug, -D [env: OCR_CLIENT_DEBUG]
+  --workers WORKERS, -w WORKERS [default: 4]
+  --help, -h             display this help and exit
+```
+<br/>
+<div v-click>
+
+- Basically a CLI re-using `swiss-qr-bill`, `ocr_client` and `opensearchapi`
+- You can do the same in Bash
+
+</div>
+
+---
+layout: cover
+---
+
+# UI
+
+---
+layout: small-title
+---
+
+# `odi/backend`
+
+- Connects to OpenSearch (`/search`)
+- Retrieves the document image (`/documents/:id`)
+
+```go
+func (s *Server) initRoutes() {
+	s.e.Use(gin.Logger())
+	s.e.Use(cors.Default())
+
+	g := s.e.Group("/api/v1")
+	g.POST("/search", s.handleSearch)
+	g.GET("/documents/:id", s.handleGetDocument)
 }
 ```
 
@@ -601,60 +812,213 @@ function telegram_notify(){
 layout: small-title
 ---
 
-# Send the payment to you bank
+# `odi/frontend`
 
-TODO: Create your own CLI here
+<img src="/pictures/odi-frontend.jpg" style="max-height: 450px; margin-left: auto; margin-right: auto"/>
 
-<div v-click>
-... or extend mine
+---
+layout: small-title
+---
 
-<img 
-    src="/pictures/postfinance-sync.jpg" 
-    style="height: 400px; width: 400px; margin-left: auto; margin-right: auto; object-fit: cover;"
-/>
+# OpenSearch content
 
+<img src="/pictures/odi-opensearch.jpg" style="max-height: 450px; margin-left: auto; margin-right: auto"/>
+
+
+---
+layout: cover
+background: /pictures/bg-2.jpg
+---
+
+# CLIs takeways
+
+---
+layout: small-title
+---
+
+# CLIs takeways
+
+<ol>
+<li v-click>Create lots of CLIs</li>
+<li v-click>Make them small
+  <ul>
+    <li>One CLI = One building block</li>
+    <li>Up to you to define what is "small" in your context</li>
+  </ul>
+</li>
+<li v-click>Make them publicly available</li>
+<li v-click>Write them in Go
+<ul v-click>
+  <li>Anyone can re-use your package</li>
+  <li>Anyone can search / use your types (pkg.go.dev), especially the JSON structs</li>
+  <li>No need to re-invent the wheel</li>
+</ul>
+</li>
+<li v-click>Provide machine-readable output, as well as textual output
+  <ul>
+    <li>Facilitates automation (for machines)</li>
+    <li>Helps with the User Experience (for humans)</li>
+  </ul>
+</li>
+</ol>
+
+---
+layout: cover
+background: /pictures/bg-3.jpg
+---
+
+# Building a CLI
+
+---
+layout: small-title
+---
+
+# My Approach
+
+Usual boilerplate:
+
+```go{monaco}
+package main
+
+import (
+  "github.com/alexflint/go-arg"
+  "github.com/sirupsen/logrus"
+)
+
+var args struct {
+  Debug *bool `arg:"-D,--debug"`
+  SomeFile string `arg:"positional,required"`
+}
+
+var logger = logrus.New()
+
+func main(){
+  arg.MustParse(&args)
+  if args.Debug != nil && *args.Debug {
+    logger.SetLevel(logrus.DebugLevel)
+  }
+  // Do something
+}
+```
+
+---
+layout: small-title
+---
+
+# Output - JSON
+
+```go
+func main(){
+  // ...
+  if args.Output == "json" {
+    enc := json.NewEncoder(os.Stdout)
+    err = enc.Encode(result)
+    if err != nil {
+      logger.Fatalf("unable to encode to JSON: %v", err)
+    }
+    return
+  }
+  // Pretty Format
+  // ...
+}
+```
+
+---
+layout: small-title
+---
+
+# Output - Table
+
+For example:
+
+```
+$ docker ps
+CONTAINER ID   IMAGE      COMMAND                  CREATED          STATUS          PORTS                                                                     NAMES
+0646c62f4845   node:lts   "docker-entrypoint.s…"   59 minutes ago   Up 59 minutes   127.0.0.1:3000->5173/tcp
+
+$ kubectl get nodes
+NAME           STATUS   ROLES                  AGE    VERSION
+n-1            Ready    control-plane,master   10m    v1.27.0
+n-2            Ready    <none>                 10m    v1.27.0
+n-3            Ready    <none>                 10m    v1.27.0
+```
+
+<div v-click style="margin-top: 2em">
+-> <a href="https://github.com/alexeyco/simpletable">alexeyco/simpletable</a>
 </div>
 
 
 ---
-layout: small-title
+layout: two-cols
 ---
 
-# Blueprint of your bash script
+# Output - Table - Example
 
-```bash
-export TELEGRAM_TOKEN=token
-export TELEGRAM_CHAT_ID=-1
-
-function process(){
-    QR_CODE=$1
-    JSON=$(echo "$QR_CODE" | swiss-qr-bill)
-    AMOUNT=$(echo "$JSON" | jq -r ".PaymentAmount.Amount.Base")
-
-    if [ $AMOUNT -gt 500 ]; then
-        echo "Skipping, $AMOUNT > 500 CHF..."
-    else
-        telegram-notify "$TELEGRAM_TOKEN" "$TELEGRAM_CHAT_ID" "Amount: $AMOUNT"
-        pf-cli pay "$QR_CODE"
-    fi
+```go
+t := simpletable.New()
+t.SetStyle(simpletable.StyleCompactClassic)
+t.Header = &simpletable.Header{
+  Cells: []*simpletable.Cell{
+    {Text: "NAME"},
+    {Text: "STATUS"},
+  }
 }
 
-airscan1 -host=scanner-1 -source=adf
+values := [][]string{
+  {"A", "ONLINE"},
+  {"B", "OFFLINE"},
+}
 
-for i in *.jpg; do
-    QR_CODE=$(zbarimg "$i" | sed -s 's/QR-Code://g')
-    process "$QR_CODE"
-done
+for _, v := range values {
+  t.Body.Cells = append(
+    t.Body.Cells, 
+    []*simpletable.Cell{
+      {Text: v[0]},
+      {Text: v[1]},
+    }
+  )
+}
 ```
 
-    
+::right::
+
+<div class="align">
+
+```
+ NAME   STATUS  
+ A      ONLINE  
+ B      OFFLINE 
+```
+
+</div>
+
+<style>
+div.align {
+  margin-top: 3.2em; 
+}
+</style>
+
 ---
-layout: code-slide
+layout: cover
+background: /pictures/charm.jpg
+backgroundSize: contain
+dim: false
 ---
 
-# Life Before Generics
+---
+layout: cover
+background: /pictures/charm-libs.jpg
+backgroundSize: contain
+dim: false
+---
 
-<ReplitEditor :path="'@denysvitali/go-generics-example-1'" :file="'main.go'" />
+---
+layout: cover
+background: /pictures/lip-gloss.png
+backgroundSize: contain
+dim: false
+---
+
 
 ---
 layout: cover
