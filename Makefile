@@ -2,7 +2,7 @@ IMAGE=dvitali/slidev
 TAG=latest
 
 NAME=clis-everywhere
-PRES_IMAGE=dvitali/go-generics-presentation
+PRES_IMAGE=dvitali/$(NAME)
 PRES_TAG=latest
 
 docker-build-base:

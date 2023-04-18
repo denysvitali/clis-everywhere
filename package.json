@@ -6,9 +6,12 @@
     "export": "slidev export"
   },
   "dependencies": {
-    "@slidev/cli": "^0.29.2",
+    "@slidev/cli": "^0.40.13",
     "@slidev/theme-default": "*",
     "@slidev/theme-seriph": "*"
   },
-  "name": "go-generics"
+  "name": "clis-everywhere",
+  "devDependencies": {
+    "@iconify-json/mdi": "^1.1.50"
+  }
 }

@@ -406,12 +406,20 @@ image: /pictures/invoice-example.jpg
 
 
 ---
+layout: cover
+background: /pictures/bg-1.jpg
+---
+
+# Some might be blank...
+
+
+---
 layout: image-right
 background-size: contain
 image: /pictures/blankpage-detector.jpg
 ---
 
-# Some might be blank...
+# blank-page-detector
 
 ```
 $ blank-page-detector images/page*.jpg
@@ -421,13 +429,22 @@ images/page4.jpg
 $ rm $(blank-page-detector images/page*.jpg)
 ```
 
+[github.com/DMSrs/blankpage-detector](https://github.com/DMSrs/blankpage-detector)
+
+---
+layout: cover
+background: /pictures/swiss-qr-bill.jpg
+---
+
+# Some contain a QR code...
+
 ---
 layout: image-right
 background-size: contain
 image: /pictures/zbar-webpage.jpg
 ---
 
-# Some contain a QR code
+# zbarimg
 
 zbarimg - scan and decode bar codes from image file(s)
 
@@ -459,7 +476,29 @@ layout: small-title
 
 # Write a parser
 
-<img src="/pictures/go-swiss-qr-bill.jpg" style="height: 400px;margin-left:auto; margin-right: auto;">
+<div class="side-by-side">
+  <img src="/pictures/go-swiss-qr-bill.jpg">
+  <img src="/pictures/six-qrbill-document.png">
+</div>
+
+<div style="text-align:center; margin-left: auto;">
+  <a href="https://github.com/denysvitali/go-swiss-qr-bill">github.com/denysvitali/go-swiss-qr-bill</a>
+</div>
+
+<style>
+div.side-by-side {
+  display: flex;
+  width: 50vw;
+  flex-direction: row;
+  margin-bottom: 1em;
+  
+  img {
+    max-height: 350px;
+    width: 100%;
+    object-fit: contain;
+  }
+}
+</style>
 
 ---
 layout: small-title
@@ -471,7 +510,7 @@ layout: small-title
 $ swiss-qr-bill < qrbill.txt
 ```
 
-```json
+```json{monaco}
 {
   "Header": {
     "QRType": "SPC",
@@ -502,7 +541,7 @@ layout: small-title
 
 # Pipe it to `jq`
 
-Perform whatever check you need via jq, for example:
+Perform whatever check you need via `jq`, for example:
 
 - discard bills that don't have your name on it
 - don't automatically pay stuff over 500 CHF
@@ -515,6 +554,24 @@ $ swiss-qr-bill | jq .PaymentAmount.Amount.Base
 10
 ```
 
+---
+layout: cover
+background: /pictures/staple.jpg
+---
+
+# Some contain a staple...
+
+<div v-click>
+Sorry, I can't build a CLI for that. <br/>
+Just remember to remove them before scanning your documents.
+</div>
+
+---
+layout: cover
+background: /pictures/invoice-1.jpg
+---
+
+# Some contain text...
 
 ---
 layout: image-right
@@ -522,7 +579,7 @@ background-size: contain
 image: /pictures/ocr-scan.jpg
 ---
 
-# Some contain text
+# tesseract
 
 ```
 $ tesseract -l eng+deu page1.jpg /tmp/result
@@ -620,7 +677,30 @@ div.ocr-server-images img {
 layout: small-title
 ---
 
-# OCR Server
+# Advantages
+
+- Fully on-device (on-device processing)
+- Free
+- I can now re-use this for other things
+
+
+<h4 style="margin-top: 1em; margin-bottom: 1em;">Comparison w/ Azure:</h4>
+<img src="/pictures/cloud-pricing/azure.png" style="height: 120px;"/>
+
+<style>
+div.side-by-side {
+  display: flex;
+
+}
+</style>
+
+
+
+---
+layout: small-title
+---
+
+# OCR Server (Kotlin on Android)
 
 ```kotlin
 routing {
@@ -742,13 +822,15 @@ flowchart LR
 
 
 ---
-layout: small-title
+layout: image-right
+image: /pictures/opensearch-cli.png
+backgroundSize: contain
 ---
 
 # Indexing to OpenSearch
 
-<img src="/pictures/opensearch-cli.png" style="max-height: 400px; margin-left: auto; margin-right: auto"/>
-
+- Quite easy
+- If you're lazy you can always ask ChatGPT
 ---
 layout: small-title
 ---
@@ -850,7 +932,7 @@ layout: small-title
 <li v-click>Write them in Go
 <ul v-click>
   <li>Anyone can re-use your package</li>
-  <li>Anyone can search / use your types (pkg.go.dev), especially the JSON structs</li>
+  <li>Anyone can search / use your types (pkg.go.dev), especially structs with JSON mappings</li>
   <li>No need to re-invent the wheel</li>
 </ul>
 </li>
@@ -1041,15 +1123,30 @@ layout: default
 <div class="links">
   <h3>Denys Vitali</h3>
   <div class="icon-values">
-    <IconValue icon="icon-twitter">
+    <div class="row">
+      <mdi-github class="icon"/>
+      <a href="https://github.com/denysvitali">@DenysVitali</a>
+    </div>
+    <div class="row">
+      <mdi-twitter class="icon"/>
       <a href="https://twitter.com/DenysVitali">@DenysVitali</a>
-    </IconValue>
-    <IconValue icon="icon-linkedin">
+    </div>
+    <div class="row">
+      <mdi-linkedin class="icon"/>
       <a href="https://www.linkedin.com/in/denysvitali/">/in/denysvitali</a>
-    </IconValue>
-    <IconValue icon="icon-laptop-internet">
+    </div>
+    <div class="row">
+      <mdi-telegram class="icon"/>
+      <a href="https://t.me/denvit">@denvit</a>
+    </div>
+    <div class="row">
+      <mdi-web class="icon"/>
       <a href="https://denv.it">https://denv.it</a>
-    </IconValue>
+    </div>
+    <div class="row">
+      <mdi-email class="icon"/>
+      denys@denv.it
+    </div>
   </div>
 </div>
 </div>
@@ -1071,6 +1168,11 @@ layout: default
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+
+    div.row {
+      display: flex;
+      column-gap: 10px;
+    }
   }
 
   span.icon-text {
