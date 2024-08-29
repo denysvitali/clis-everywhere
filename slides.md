@@ -19,6 +19,23 @@ XXIV. Go Meetup @ Swisscom #EasterEdition
 
 Denys Vitali -- Data, Analytics & AI Engineer @ Swisscom
 
+<br/>
+
+<div class="custom-footer">
+  <a href="https://clis-everywhere.k8s.best/">clis-everywhere.k8s.best</a>
+</div>
+
+<style>
+  div.custom-footer {
+    position: absolute;
+    bottom: 30px;
+
+    a,a:visited {
+      color: #FFF;
+    }
+  }
+</style>
+
 
 ---
 layout: image-right
