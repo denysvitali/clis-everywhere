@@ -19,6 +19,7 @@ jobs:
         cache: 'npm'
     - run: yarn install
     - run: yarn run slidev build
+    - run: cp ./dist/index.html ./dist/404.html
     - uses: actions/upload-pages-artifact@v3.0.1
       with:
         path: dist/
