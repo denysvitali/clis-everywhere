@@ -20,6 +20,7 @@ jobs:
     - run: yarn install
     - run: yarn run slidev build
     - run: cp ./dist/index.html ./dist/404.html
+    - run: cp -R ./pictures ./dist/pictures
     - uses: actions/upload-pages-artifact@v3.0.1
       with:
         path: dist/
